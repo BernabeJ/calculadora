@@ -96,6 +96,7 @@ dbuttons = [
 ]
 
 def pinta(valor):
+    print(valor)
     return valor
 
 class Controlator(ttk.Frame):
@@ -105,7 +106,7 @@ class Controlator(ttk.Frame):
         d.grid(column=0, row=0, columnspan= 4)
 
         for properties in dbuttons:
-            btn = CalcButton(self, properties['text'],lambda:pinta(properties.get('text')), properties.get("W", 1), properties.get("H", 1),)
+            btn = CalcButton(self, properties['text'],pinta,  properties.get("W", 1), properties.get("H", 1),)
             btn.grid(column=properties['col'],row = properties ['row'],columnspan=properties.get("W",1), rowspan=properties.get("H",1))
          
 
@@ -126,5 +127,5 @@ class CalcButton(ttk.Button):
     def __init__(self, parent, value,command, widht=1, height=1):
         ttk.Frame.__init__(self, parent, width = 68*widht, height=50*height )
         self.pack_propagate(0)
-        btn = ttk.Button(self, text=value, command=command)
+        btn = ttk.Button(self, text=value,command = lambda: command(value))
         btn.pack(side=TOP, fill=BOTH, expand=True)
